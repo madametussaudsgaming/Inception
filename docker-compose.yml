@@ -6,3 +6,7 @@ networks:
   inception:
 
 services:
+  wordpress:
+    build: ./srcs/requirements/wordpress
+    volumes:
+      - wp-data:/var/www/html
