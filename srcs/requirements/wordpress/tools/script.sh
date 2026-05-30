@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #create and switch to /var/www/ directory for BOTH nginx and wordpress
 mkdir /var/www/

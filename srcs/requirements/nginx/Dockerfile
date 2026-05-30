@@ -6,6 +6,7 @@ RUN apt-get -y update && apt-get -y upgrade \
     apt install openssl -y \
 
 COPY ./tools/script.sh /nginx_init.sh
-
+COPY ./conf/nginx.conf /etc/nginx/sites-available/default
+RUN chmod +x /usr/local/bin/nginx_init.sh
 #difference between CMD and ENTRYPOINT is that the latter will never be skipped, CMD specified default command
 ENTRYPOINT ["nginx_init.sh"]

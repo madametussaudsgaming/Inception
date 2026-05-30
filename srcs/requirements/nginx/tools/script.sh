@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #generates a self-signed SSL/TLS certificate and private key using OpenSSL.
 openssl req -x509 \
@@ -12,3 +13,5 @@ openssl req -x509 \
 #newkey - generate new private key, length 2048 bits
 #keyout and out, specifies where privkey and cert will be stores respectively
 #self-signed certificates are not trusted by most web browsers
+
+nginx -g "daemon off;"

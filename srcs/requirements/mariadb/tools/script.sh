@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #change ip to 0.0.0.0 so it listens to the other containers
 sed -i 's/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/g' \
