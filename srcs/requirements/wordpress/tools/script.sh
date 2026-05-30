@@ -36,9 +36,9 @@ wp user create $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD --allow-root
 #admittedly i just copied this sample themes bit
 wp theme install astra --activate --allow-root
 
-
+PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
 #modify www.conf, change  every instant of php7.3-fpm.sock to 9000.
-sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
+sed -i "s/listen = \/run\/php\/php${PHP_VERSION}-fpm.sock/listen = 9000/g" /etc/php/7.3/fpm/pool.d/www.conf
 #NOTES
 #allows PHP-FPM to listen like a TCP port instad of a unix domains socket
 #NGINX can reach it over the Docker network
@@ -47,4 +47,4 @@ sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm
 mkdir /run/php
 
 #-F tells PHP-FPM to run in (F)oreground and not as a daemon so it doesn't close.
-/usr/sbin/php-fpm7.3 -F
+/usr/sbin/php-fpm${PHP_VERSION} -F
