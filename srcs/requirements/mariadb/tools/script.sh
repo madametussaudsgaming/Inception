@@ -14,7 +14,7 @@ echo "CREATE DATABASE IF NOT EXISTS $db1_name ;" > toberead.sql
 echo "CREATE USER IF NOT EXISTS '$db1_user'@'%' IDENTIFIED BY '$db1_pwd' ;" >> toberead.sql
 echo "GRANT ALL PRIVILEGES ON $db1_name.* TO '$db1_user'@'%' ;" >> toberead.sql
 #set password
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" >> toberead.sql
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$db1_root_pwd' ;" >> toberead.sql
 #reload permission tables so changes take effect asap
 echo "FLUSH PRIVILEGES;" >> toberead.sql
 #feed toberead.sql into mysql

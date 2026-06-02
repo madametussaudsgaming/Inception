@@ -39,7 +39,7 @@ wp theme install astra --activate --allow-root
 
 PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
 #modify www.conf, change  every instant of php7.3-fpm.sock to 9000.
-sed -i "s/listen = \/run\/php\/php${PHP_VERSION}-fpm.sock/listen = 9000/g" /etc/php/7.3/fpm/pool.d/www.conf
+sed -i "s/listen = \/run\/php\/php${PHP_VERSION}-fpm.sock/listen = 9000/g" /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
 #NOTES
 #allows PHP-FPM to listen like a TCP port instad of a unix domains socket
 #NGINX can reach it over the Docker network
