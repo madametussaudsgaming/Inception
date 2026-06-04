@@ -4,10 +4,11 @@
 mkdir -p /var/www/
 mkdir -p /var/www/html
 cd /var/www/html
-#removal of wordpress artifacts for fresh install
-rm -rf *
+
 
 if [ ! -f /var/www/html/wp-config.php ]; then
+    #removal of wordpress artifacts for fresh install
+    rm -rf *
     #download and authorize php archive 
     #-O flag tells curl to save the file with the same name as it has on the server.
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar 
@@ -21,9 +22,9 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     #work on real wp-config
     mv wp-config-sample.php wp-config.php
     #configure wp to talk to mariadb, swap out defaults for actual variables
-    sed -i -r "s/database/$db_name/1"   wp-config.php
-    sed -i -r "s/database_user/$db_user/1"  wp-config.php
-    sed -i -r "s/passwod/$db_pwd/1"    wp-config.php
+    sed -i -r "s/database_name_here/$db_name/1"   wp-config.php
+    sed -i -r "s/username_here/$db_user/1"  wp-config.php
+    sed -i -r "s/password_here/$db_pwd/1"    wp-config.php
     sed -i -r "s/localhost/mariadb/1"    wp-config.php
     #NOTES
     #wp by default assumes database is on the same machine

@@ -18,7 +18,7 @@ chown -R mysql:mysql /run/mysqld
 if [ ! -d /var/lib/mysql/$db_name ]; then
     #start mariadb without service system
     mysqld_safe --skip-networking &
-    sleep 3
+    sleep 10
 
 
     echo "CREATE DATABASE IF NOT EXISTS $db_name ;" > toberead.sql
