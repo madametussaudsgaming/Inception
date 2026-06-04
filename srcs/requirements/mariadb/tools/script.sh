@@ -15,23 +15,26 @@ chown -R mysql:mysql /run/mysqld
 #this way anything written for mysql would work identically with mariadb
 #service don't work the same way in containers, so this is not correct
 
-#start mariadb without service system
-mysqld_safe --skip-networking &
-sleep 3
+if [ ! -d /var/lib/mysql/$db_name ]; then
+    #start mariadb without service system
+    mysqld_safe --skip-networking &
+    sleep 3
 
 
-echo "CREATE DATABASE IF NOT EXISTS $db_name ;" > toberead.sql
-echo "CREATE USER IF NOT EXISTS '$db_user'@'%' IDENTIFIED BY '$db_pwd' ;" >> toberead.sql
-echo "GRANT ALL PRIVILEGES ON $db_name.* TO '$db_user'@'%' ;" >> toberead.sql
-#set password
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$db1_root_pwd' ;" >> toberead.sql
-#reload permission tables so changes take effect asap
-echo "FLUSH PRIVILEGES;" >> toberead.sql
-#feed toberead.sql into mysql
-mysql < toberead.sql
+    echo "CREATE DATABASE IF NOT EXISTS $db_name ;" > toberead.sql
+    echo "CREATE USER IF NOT EXISTS '$db_user'@'%' IDENTIFIED BY '$db_pwd' ;" >> toberead.sql
+    echo "GRANT ALL PRIVILEGES ON $db_name.* TO '$db_user'@'%' ;" >> toberead.sql
+    #set password
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$db1_root_pwd' ;" >> toberead.sql
+    #reload permission tables so changes take effect asap
+    echo "FLUSH PRIVILEGES;" >> toberead.sql
+    #feed toberead.sql into mysql
+    mysql < toberead.sql
 
-# kills temp instance
-kill $(cat /var/run/mysqld/mysqld.pid)
+    # kills temp instance
+    kill $(cat /var/run/mysqld/mysqld.pid)
+    sleep 1
+fi
 #NOTES
 #it is the last running process that needs to stay in the foreground
 #to keep the container alive; Docker monitors the LAST-launched process,
