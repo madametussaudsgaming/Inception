@@ -1,14 +1,14 @@
 # INCEPTION
 Learning about Dockers, Containers, and Volumes!
 _This project has been created as part of the 42 curriculum by rpadasia [@madametussaudsgaming]_
-<ins>Contents</ins><br />
+<br /><ins>Contents</ins><br />
 - Description
 - Instructions
 - Useful Commands
 - Resources
 
 # Description
-This project focuses on the 'Docker' software!<br /><br />
+This project focuses on the 'Docker' software!<br />
 
 <ins>DOCKERS AND CONTAINERS</ins><br />
 DOCKER is a service (not to be confused with a VM) that allows you to build and deliver isolated software in packages called CONTAINERS.
@@ -23,7 +23,23 @@ That being said, Mac and Windows will use a hypervisor like VirtualBox to run ou
 This is what allows you to bundle your application and its dependencies into containers! It also includes the Docker Daemon, the background process managing the containers, as well as the Docker Client, used in the terminal to interact with the Daemon.
 
 <ins>DOCKERFILE</ins><br />
-The Dockerfile is a plaintext file with all the instructions needed to build a Docker IMAGE. It typically contains a base image to use, all dependencies to install, and scipts needed to set up the environment. The Image is a package containing all the dependencies (code, libraries) needed to run a software. You use 'docker build' on the Dockerfile, with the Daemon creating an builds the image, you then use 'docker run', and the Daemon creates a container from said image.
+The Dockerfile is a plaintext file with all the instructions needed to build a Docker IMAGE. It typically contains a base image to use, all dependencies to install, and scipts needed to set up the environment. The Image is a package containing all the dependencies (code, libraries) needed to run a software. You run 'docker build' on the Dockerfile, with the Daemon building the image, you then use 'docker run', and the Daemon creates a container from said image.
+
+<ins>DOCKER-COMPOSE</ins><br />
+Written in YAML (a configuration language), this file defines how multiple Docker containers will be set up and run, acting as a kind of conductor for what volume directories, networks and services are a part of the full application, immediate breaks and activation of all container systems.
+
+<ins>DOCKER NETWORK</ins><br />
+Virtual software that connects the Docker containers, allowing them to communicate with each other and the outside world. I use the default BRIDGE network, containers attached to it can talk to each other using their container/service names as hostnames. It's also isolated from the host so the containers can only be reached externally through explicitly stated ports (in my case, nginx can be reached through port 443).
+
+<ins>DOCKER VOLUMES</ins><br />
+Simply put, it is a persistent storage location used to store data from and between containers, persisting even after its container is deleted. There are two kinds:
+- the Bind Mount, which mounts inside a container's isolated file system, connecting it to a storage source outside the container. When you bind mount, you're referencing a specific absolute path on the host machine, like rpadasia/myproject/data.
+That means if deployed on a different machine, the path breaks. This will NOT be the case in
+- the Named Volume, which is stored in an unspecified location on the host machine, referenced by a name (eg. "app-data") for the Engine to figure out where it would live on the host. Much better for shared volumes!
+
+Now onto the types of containers we will need to build!
+
+<ins>DOCKER VOLUMES</ins><br />
 
 # Instructions
 1. Set up a Linux VM (I've used Debian), no large explanation necessary here. Enable bi-directional clipbord for your own sanity.
