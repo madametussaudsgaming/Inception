@@ -29,17 +29,22 @@ The Dockerfile is a plaintext file with all the instructions needed to build a D
 Written in YAML (a configuration language), this file defines how multiple Docker containers will be set up and run, acting as a kind of conductor for what volume directories, networks and services are a part of the full application, immediate breaks and activation of all container systems.
 
 <ins>DOCKER NETWORK</ins><br />
-Virtual software that connects the Docker containers, allowing them to communicate with each other and the outside world. I use the default BRIDGE network, containers attached to it can talk to each other using their container/service names as hostnames. It's also isolated from the host so the containers can only be reached externally through explicitly stated ports (in my case, nginx can be reached through port 443).
+Virtual software that connects the Docker containers, allowing them to communicate with each other and the outside world. I use the default BRIDGE network, containers attached to it can talk to each other using their container/service names as hostnames. It's also isolated from the host so the containers can only be reached externally through explicitly stated ports (in my case, nginx can be reached through port 443). To have a host network would mean to share the host machine's network stack directly; a process listening to port, say, 1234 would also be directly accessible on the host's port 1234. This is bad for us, as the isolation offers
 
 <ins>DOCKER VOLUMES</ins><br />
 Simply put, it is a persistent storage location used to store data from and between containers, persisting even after its container is deleted. There are two kinds:
 - the Bind Mount, which mounts inside a container's isolated file system, connecting it to a storage source outside the container. When you bind mount, you're referencing a specific absolute path on the host machine, like rpadasia/myproject/data.
 That means if deployed on a different machine, the path breaks. This will NOT be the case in
-- the Named Volume, which is stored in an unspecified location on the host machine, referenced by a name (eg. "app-data") for the Engine to figure out where it would live on the host. Much better for shared volumes!
+- the Docker Volume, which is stored in an unspecified location on the host machine, referenced by a name (eg. "app-data") for the Engine to figure out where it would live on the host. Much better for shared volumes!
+
+<ins>NEED TO KNOW</ins><br />
+Secrets VS. Environmental Variables - ENVs are plain text values typically filled with macro definitions for programs to use, while Secrets are encrypted, only mounted into containers that explicitly request them, only readable by root inside the container. This is significantly more secure as the raw credentials are never found or exposed in the repository.
 
 Now onto the types of containers we will need to build!
 
-<ins>DOCKER VOLUMES</ins><br />
+<ins>MariaDB</ins><br />
+
+
 
 # Instructions
 1. Set up a Linux VM (I've used Debian), no large explanation necessary here. Enable bi-directional clipbord for your own sanity.
