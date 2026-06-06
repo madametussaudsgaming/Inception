@@ -3,8 +3,8 @@ Learning about Dockers, Containers, and Volumes!
 _This project has been created as part of the 42 curriculum by rpadasia [@madametussaudsgaming]_
 
 # Description
-This project focuses on the 'Docker' software!
-<ins>DOCKERS AND CONTAINERS</ins>
+This project focuses on the 'Docker' software!__
+<ins>DOCKERS AND CONTAINERS</ins>__
 DOCKER is a service (not to be confused with a VM) that allows you to build and deliver isolated software in packages called CONTAINERS.
 
 A Container is a type of virtualization (not to be confused with VMs) that operates on the OS level, sharing resources with the host kernel, as opposed to the much heavier Virtual Machine, which simulates its own kernel. (Though this project is typically done within a Virtual Machine.)  A container simply has all necessary dependencies packaged with it, built from an a Docker IMAGE. A good comparison is to a python virtual environment (venv), but on a filesystem's scale.
