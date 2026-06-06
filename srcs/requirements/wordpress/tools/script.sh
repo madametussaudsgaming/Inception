@@ -32,6 +32,12 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     #in docker, containers find each other by their service name (in the compose file)
     #so 'mariadb' automatically resolves to MDB's container's IP.
 
+    # Wait for MariaDB to be ready
+    echo "Waiting for MariaDB..."
+    until mysqladmin ping -h mariadb -u"$db_user" -p"$db_pwd" --silent; do
+        sleep 1
+    done
+    echo "MariaDB is ready, can INSTALL WordPress Core."
 
     #installs WordPress and sets up config for admin acc, skip email to not send an email
     wp core install --url=$DOMAIN_NAME/ --title=$WP_TITLE --admin_user=$WP_ADMIN_USR --admin_password=$WP_ADMIN_PWD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
@@ -48,8 +54,12 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     #NGINX can reach it over the Docker network
 
     #this dir. used by PHP-FPM to store aforementioned domain sockets
-    mkdir /run/php
+    mkdir -p /run/php
 fi
 
+PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
 #-F tells PHP-FPM to run in (F)oreground and not as a daemon so it doesn't close.
+sed -i "s|listen = /run/php/php${PHP_VERSION}-fpm.sock|listen = 9000|g" \
+    /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+mkdir -p /run/php
 /usr/sbin/php-fpm${PHP_VERSION} -F
