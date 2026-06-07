@@ -15,9 +15,9 @@ DOCKER is a service (not to be confused with a VM) that allows you to build and 
 
 A Container is a type of virtualization (not to be confused with VMs) that operates on the OS level, sharing resources with the host kernel, as opposed to the much heavier Virtual Machine, which simulates its own kernel. (Though this project is typically done within a Virtual Machine.)  A container simply has all necessary dependencies packaged with it, built from an a Docker IMAGE. A good comparison is to a python virtual environment (venv), but on a filesystem's scale.
 
-Taking all this into account, many individual containers can run simulaneously, taking up MBs as opposed to GBs of storage. Packaging your software with the exact dependencies it was developed with (Python version, Linux version etc), a server can run containers with entirely different versions of the same dependency, with no problem caused for each other! These containers also can share memory with each other as they store data in VOLUMES on the host OS.
+Taking all this into account, many individual containers can run simulaneously, taking up MBs as opposed to GBs of storage. Packaging your software with the exact dependencies it was developed with (Python version, Linux version etc), a server can run containers with entirely different versions of the same dependency, with no problem caused for each other! These containers also can share data with each other as they store it in VOLUMES on the host OS.
 
-That being said, Mac and Windows will use a hypervisor like VirtualBox to run our containers, making these implementations functionally OS-agnostic, provided there is a Linux-based hypervisor.
+That being said, Mac and Windows's Docker Desktop will use a built-in hypervisor to run our containers, making these implementations functionally OS-agnostic, provided there is a Linux-based hypervisor.
 
 <ins>DOCKERS ENGINE</ins><br />
 This is what allows you to bundle your application and its dependencies into containers! It also includes the Docker Daemon, the background process managing the containers, as well as the Docker Client, used in the terminal to interact with the Daemon.
@@ -26,7 +26,7 @@ This is what allows you to bundle your application and its dependencies into con
 The Dockerfile is a plaintext file with all the instructions needed to build a Docker IMAGE. It typically contains a base image to use, all dependencies to install, and scipts needed to set up the environment. The Image is a package containing all the dependencies (code, libraries) needed to run a software. You run 'docker build' on the Dockerfile, with the Daemon building the image, you then use 'docker run', and the Daemon creates a container from said image.
 
 <ins>DOCKER-COMPOSE</ins><br />
-Written in YAML (a configuration language), this file defines how multiple Docker containers will be set up and run, acting as a kind of conductor for what volume directories, networks and services are a part of the full application, immediate breaks and activation of all container systems.
+Written in YAML (a configuration language), this file defines how multiple Docker containers will be set up and run, acting as a kind of conductor for what volume directories, networks and services are a part of the full application, handling the startup, shutdown, and lifecycle of all container systems together.
 
 <ins>DOCKER NETWORK</ins><br />
 Virtual software that connects the Docker containers, allowing them to communicate with each other and the outside world. I use the default BRIDGE network, containers attached to it can talk to each other using their container/service names as hostnames. It's also isolated from the host so the containers can only be reached externally through explicitly stated ports (in my case, nginx can be reached through port 443). To have a host network would mean to share the host machine's network stack directly; a process listening to port, say, 1234 would also be directly accessible on the host's port 1234. This is bad for us, as the isolation offers security and prevents unintended access to the host.
@@ -45,7 +45,7 @@ PHP Scripts - Hypertext Preprocessor! Using CGI, they are typically used to dyna
 
 FastCGI - A protocol allowing web servers to communicate with web applications, executes scripts in a more efficient way than traditional CGI protocols, which creates new processes for each script. 'PHP-FPM' implements this protocol specifically for usage with PHP scripts. It has a pool of processes solely responsible for PHP scipt execution, parsing requests, executing and returning results. This is more efficient as these processes can be reused.
 
-TLS - Transport Layer Security, a security protocol used to establish secure communication between two parties over the internet. Uses a public key encryption to establish connections, client and server exchanges digital certificates and encryption keys to confirm a secure line before communicating.
+TLS - Transport Layer Security, a security protocol used to establish secure communication between two parties over the internet. Uses asymmetric (public key) encryption during the handshake to establish a shared secret, then switches to symmetric encryption for the actual data transfer. Client and server exchange digital certificates and encryption keys to confirm a secure line before communicating.
 
 OpenSSL - An implementation of TLS and its predecessor, SSL. Tool for working with TLS, can manage keys and certificates, configuring the TLS server itself, connecting to as a client, debugging as well as generating digital certificates.
 
@@ -61,18 +61,13 @@ Using PHP and MySQL (MariaDB in our case), it is a platform primarily for buildi
 A web server known for high performance, stability and efficiency. Uses TLS or SSL to handle server-side requests for webapps, can also serve static content, often connected to other software such as databases.
 
 # Instructions
-1. Set up a Linux VM (I've used Debian), no large explanation necessary here. Enable bi-directional clipbord for your own sanity.
+1. Set up a Linux VM (I've used Debian), no large explanation necessary here. Enable bi-directional clipbord for your own sanity. Make sure the user is named your 42 username.
 2. Install Vim, Docker, Docker-Compose.
+3. Create a docker-compose.yml organizing your services (mariadb, nginx and wordpress) and volumes.
+4. Create the Dockerfile for WordPress. Call 'FROM' with the second-to-latest Debian release. Update and upgrade apt-get, curl and php-fpm. Make a command for copying a future script into the image, elevate its privileges and call 'ENTRYPOINT' to run said script when the container starts.
+5. Create the script for WP.
 
-# Resources
-
-A Project description section (to be added) must also explain the use of Docker and the sources
-included in the project. It must indicate the main design choices, as well as a
-comparison between:
-◦ Virtual Machines vs Docker
-◦ Secrets vs Environment Variables
-◦ Docker Network vs Host Network
-◦ Docker Volumes vs Bind Mount
+<!-- Create a .env file for your WordPress and MariaDB containers to use. Add it to .gitignore. -->
 
 # Resources
 Dockers, Containers and other Key Concepts -
