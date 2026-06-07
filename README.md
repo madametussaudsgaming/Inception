@@ -29,26 +29,41 @@ The Dockerfile is a plaintext file with all the instructions needed to build a D
 Written in YAML (a configuration language), this file defines how multiple Docker containers will be set up and run, acting as a kind of conductor for what volume directories, networks and services are a part of the full application, immediate breaks and activation of all container systems.
 
 <ins>DOCKER NETWORK</ins><br />
-Virtual software that connects the Docker containers, allowing them to communicate with each other and the outside world. I use the default BRIDGE network, containers attached to it can talk to each other using their container/service names as hostnames. It's also isolated from the host so the containers can only be reached externally through explicitly stated ports (in my case, nginx can be reached through port 443). To have a host network would mean to share the host machine's network stack directly; a process listening to port, say, 1234 would also be directly accessible on the host's port 1234. This is bad for us, as the isolation offers
+Virtual software that connects the Docker containers, allowing them to communicate with each other and the outside world. I use the default BRIDGE network, containers attached to it can talk to each other using their container/service names as hostnames. It's also isolated from the host so the containers can only be reached externally through explicitly stated ports (in my case, nginx can be reached through port 443). To have a host network would mean to share the host machine's network stack directly; a process listening to port, say, 1234 would also be directly accessible on the host's port 1234. This is bad for us, as the isolation offers security and prevents unintended access to the host.
 
 <ins>DOCKER VOLUMES</ins><br />
 Simply put, it is a persistent storage location used to store data from and between containers, persisting even after its container is deleted. There are two kinds:
-- the Bind Mount, which mounts inside a container's isolated file system, connecting it to a storage source outside the container. When you bind mount, you're referencing a specific absolute path on the host machine, like rpadasia/myproject/data.
-That means if deployed on a different machine, the path breaks. This will NOT be the case in
+- the Bind Mount, which connects a specific absolute path on the host machine directly into the container's isolated filesystem. When you bind mount, you're referencing a specific absolute path on the host machine, like rpadasia/myproject/data. That means if deployed on a different machine, the path breaks. This will NOT be the case in
 - the Docker Volume, which is stored in an unspecified location on the host machine, referenced by a name (eg. "app-data") for the Engine to figure out where it would live on the host. Much better for shared volumes!
 
 <ins>NEED TO KNOW</ins><br />
 Secrets VS. Environmental Variables - ENVs are plain text values typically filled with macro definitions for programs to use, while Secrets are encrypted, only mounted into containers that explicitly request them, only readable by root inside the container. This is significantly more secure as the raw credentials are never found or exposed in the repository.
 
+CGI - Common Gateway Interfaces! It is an interface specification that enables web servers to execute an external program to process HTTP or HTTPS user requests, featured in the previous WebServ project.
+
+PHP Scripts - Hypertext Preprocessor! Using CGI, they are typically used to dynamically generate HTML code, as well as manage server-side data.
+
+FastCGI - A protocol allowing web servers to communicate with web applications, executes scripts in a more efficient way than traditional CGI protocols, which creates new processes for each script. 'PHP-FPM' implements this protocol specifically for usage with PHP scripts. It has a pool of processes solely responsible for PHP scipt execution, parsing requests, executing and returning results. This is more efficient as these processes can be reused.
+
+TLS - Transport Layer Security, a security protocol used to establish secure communication between two parties over the internet. Uses a public key encryption to establish connections, client and server exchanges digital certificates and encryption keys to confirm a secure line before communicating.
+
+OpenSSL - An implementation of TLS and its predecessor, SSL. Tool for working with TLS, can manage keys and certificates, configuring the TLS server itself, connecting to as a client, debugging as well as generating digital certificates.
+
 Now onto the types of containers we will need to build!
 
 <ins>MariaDB</ins><br />
+An open-source relational database management system; it uses the same keywords and commands as MySQL.
 
+<ins>WordPress</ins><br />
+Using PHP and MySQL (MariaDB in our case), it is a platform primarily for building and managing websites without the need for advanced technical skills. Will utilize FastCGI's PHP-FPM.
 
+<ins>Nginx</ins><br />
+A web server known for high performance, stability and efficiency. Uses TLS or SSL to handle server-side requests for webapps, can also serve static content, often connected to other software such as databases.
 
 # Instructions
 1. Set up a Linux VM (I've used Debian), no large explanation necessary here. Enable bi-directional clipbord for your own sanity.
-2.
+2. Install Vim, Docker, Docker-Compose.
+
 # Resources
 
 A Project description section (to be added) must also explain the use of Docker and the sources
