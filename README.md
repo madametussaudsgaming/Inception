@@ -61,21 +61,54 @@ Using PHP and MySQL (MariaDB in our case), it is a platform primarily for buildi
 A web server known for high performance, stability and efficiency. Uses TLS or SSL to handle server-side requests for webapps, can also serve static content, often connected to other software such as databases.
 
 # Instructions
-1. Set up a Linux VM (I've used Debian), no large explanation necessary here. Enable bi-directional clipbord for your own sanity. Make sure the user is named your 42 username.
+1. Set up a Linux VM (I've used Debian), no large explanation necessary here. Enable bi-directional clipbord for your own sanity. Make sure the user is named your 42 username. Add your domain to '/etc/hosts'.
 2. Install Vim, Docker, Docker-Compose.
-3. Create a docker-compose.yml organizing your services (mariadb, nginx and wordpress) and volumes.
-4. Create the Dockerfile for WordPress. Call 'FROM' with the second-to-latest Debian release. Update and upgrade apt-get, curl and php-fpm. Make a command for copying a future script into the image, elevate its privileges and call 'ENTRYPOINT' to run said script when the container starts.
-5. Create the script for WP.
+3. Set up your project directory structure as follows:
+    /
+    ├── Makefile
+    └── srcs/
+        ├── .env
+        ├── docker-compose.yml
+        └── requirements/
+            ├── mariadb/
+            │   ├── Dockerfile
+            │   └── tools/
+            │       └── script.sh
+            ├── nginx/
+            │   ├── Dockerfile
+            │   ├── conf/
+            │   │   └── nginx.conf
+            │   └── tools/
+            │       └── script.sh
+            └── wordpress/
+                ├── Dockerfile
+                └── tools/
+                    └── script.sh
+4. Create a .env file for your WordPress and MariaDB containers to use. Add it to .gitignore.
+5. Create the Dockerfile for all services. Call 'FROM' with the second-to-latest Debian release. Update and upgrade apt-get, curl and php-fpm. Each follows the same pattern — install packages, copy your script in (preemtively stand ready for its arrival), set ENTRYPOINT (run script when container starts).
+6. Write a startup script for all services. They'll run inside the container when it starts. It must end with a foreground process — this is what keeps the container alive. Docker monitors this last process; if it exits, the container shuts down. No 'while true' or 'sleep infinity' nonsense, if the service fails the container should restart, not indefinitely hang. For example, Nginx has a `nginx -g "daemon off;"' mode.
+7. Create a docker-compose.yml connecting all three services under one network, with named volumes for persistence. Use `depends_on` to control startup order: MariaDB starts first, then WordPress, then NGINX.
+8. Create Makefile, creating the data directories and launching docker compose.
 
-<!-- Create a .env file for your WordPress and MariaDB containers to use. Add it to .gitignore. -->
+# Useful Commands
+Check running containers- "docker ps"
+Check logs of container- "docker logs <service>"
+Enter a running container's shell- "docker exec -it mariadb bash"
+View container network system- "docker network ls"
 
 # Resources
-Dockers, Containers and other Key Concepts -
-Docker Compose -
-Dockerfile -
-Volumes -
-WordPress -
-MariaDB -
-NGINX -
-Scripting -
-'Default' Config References -
+<ins>Dockers, Containers and other Key Concepts</ins><br />
+https://docs.docker.com/get-started/overview/
+<ins>Docker Compose</ins><br />
+<ins>Dockerfile</ins><br />
+<ins>Volumes</ins><br />
+<ins>WordPress</ins><br />
+<ins>MariaDB</ins><br />
+<ins>NGINX</ins><br />
+<ins>'Default' Config References</ins><br />
+https://developer.wordpress.org/apis/wp-config-php/
+https://mariadb.com/kb/en/configuring-mariadb-with-option-files/
+https://wiki.debian.org/nginx
+
+# AI Usage
+Claude was used throughout this project as a learning aid to explain concepts including Docker internals, container lifecycle, networking, TLS, FastCGI, shell scripting. All AI-generated explanations were verified for understanding before application. Per the project's AI guidelines, all content used is fully understood and can be justified during peer evaluation.
