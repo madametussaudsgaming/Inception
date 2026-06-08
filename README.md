@@ -98,25 +98,25 @@ View container network system- "docker network ls"
 
 # Resources
 <ins>Dockers, Containers and other Key Concepts</ins><br />
-https://docs.docker.com/get-started/overview/
+https://docs.docker.com/get-started/overview/<br />
 <ins>Docker Compose</ins><br />
-https://www.reddit.com/r/docker/comments/1f96g4v/can_someone_please_help_me_understand_how_to_use/
+https://www.reddit.com/r/docker/comments/1f96g4v/can_someone_please_help_me_understand_how_to_use/<br />
 <ins>Dockerfile</ins><br />
-https://www.geeksforgeeks.org/cloud-computing/what-is-dockerfile/
-https://www.cloudbees.com/blog/what-is-a-dockerfile
-https://github.com/Forstman1/inception-42
+https://www.geeksforgeeks.org/cloud-computing/what-is-dockerfile/<br />
+https://www.cloudbees.com/blog/what-is-a-dockerfile<br />
+https://github.com/Forstman1/inception-42<br />
 <ins>Volumes</ins><br />
-https://github.com/Forstman1/inception-42
+https://github.com/Forstman1/inception-42<br />
 <ins>WordPress</ins><br />
-https://github.com/Forstman1/inception-42
+https://github.com/Forstman1/inception-42<br />
 <ins>MariaDB</ins><br />
-https://github.com/Forstman1/inception-42
+https://github.com/Forstman1/inception-42<br />
 <ins>NGINX</ins><br />
-https://github.com/Forstman1/inception-42
+https://github.com/Forstman1/inception-42<br />
 <ins>'Default' Config References</ins><br />
-https://developer.wordpress.org/apis/wp-config-php/
-https://mariadb.com/kb/en/configuring-mariadb-with-option-files/
-https://wiki.debian.org/nginx
+https://developer.wordpress.org/apis/wp-config-php/<br />
+https://mariadb.com/kb/en/configuring-mariadb-with-option-files/<br />
+https://wiki.debian.org/nginx<br />
 
 # AI Usage
 Claude was used throughout this project as a learning aid to explain concepts including Docker internals, container lifecycle, networking, TLS, FastCGI, shell scripting. All AI-generated explanations were verified for understanding before application. Per the project's AI guidelines, all content used is fully understood and can be justified during peer evaluation.
