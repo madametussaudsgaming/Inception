@@ -100,11 +100,19 @@ View container network system- "docker network ls"
 <ins>Dockers, Containers and other Key Concepts</ins><br />
 https://docs.docker.com/get-started/overview/
 <ins>Docker Compose</ins><br />
+https://www.reddit.com/r/docker/comments/1f96g4v/can_someone_please_help_me_understand_how_to_use/
 <ins>Dockerfile</ins><br />
+https://www.geeksforgeeks.org/cloud-computing/what-is-dockerfile/
+https://www.cloudbees.com/blog/what-is-a-dockerfile
+https://github.com/Forstman1/inception-42
 <ins>Volumes</ins><br />
+https://github.com/Forstman1/inception-42
 <ins>WordPress</ins><br />
+https://github.com/Forstman1/inception-42
 <ins>MariaDB</ins><br />
+https://github.com/Forstman1/inception-42
 <ins>NGINX</ins><br />
+https://github.com/Forstman1/inception-42
 <ins>'Default' Config References</ins><br />
 https://developer.wordpress.org/apis/wp-config-php/
 https://mariadb.com/kb/en/configuring-mariadb-with-option-files/
