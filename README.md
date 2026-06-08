@@ -64,26 +64,26 @@ A web server known for high performance, stability and efficiency. Uses TLS or S
 1. Set up a Linux VM (I've used Debian), no large explanation necessary here. Enable bi-directional clipbord for your own sanity. Make sure the user is named your 42 username. Add your domain to '/etc/hosts'.
 2. Install Vim, Docker, Docker-Compose.
 3. Set up your project directory structure as follows:
-    /
-    ├── Makefile
-    └── srcs/
-        ├── .env
-        ├── docker-compose.yml
-        └── requirements/
-            ├── mariadb/
-            │   ├── Dockerfile
-            │   └── tools/
-            │       └── script.sh
-            ├── nginx/
-            │   ├── Dockerfile
-            │   ├── conf/
-            │   │   └── nginx.conf
-            │   └── tools/
-            │       └── script.sh
-            └── wordpress/
-                ├── Dockerfile
-                └── tools/
-                    └── script.sh
+    /<br />
+    ├── Makefile<br />
+    └── srcs/<br />
+        ├── .env<br />
+        ├── docker-compose.yml<br />
+        └── requirements/<br />
+            ├── mariadb/<br />
+            │   ├── Dockerfile<br />
+            │   └── tools/<br />
+            │       └── script.sh<br />
+            ├── nginx/<br />
+            │   ├── Dockerfile<br />
+            │   ├── conf/<br />
+            │   │   └── nginx.conf<br />
+            │   └── tools/<br />
+            │       └── script.sh<br />
+            └── wordpress/<br />
+                ├── Dockerfile<br />
+                └── tools/<br />
+                    └── script.sh<br />
 4. Create a .env file for your WordPress and MariaDB containers to use. Add it to .gitignore.
 5. Create the Dockerfile for all services. Call 'FROM' with the second-to-latest Debian release. Update and upgrade apt-get, curl and php-fpm. Each follows the same pattern — install packages, copy your script in (preemtively stand ready for its arrival), set ENTRYPOINT (run script when container starts).
 6. Write a startup script for all services. They'll run inside the container when it starts. It must end with a foreground process — this is what keeps the container alive. Docker monitors this last process; if it exits, the container shuts down. No 'while true' or 'sleep infinity' nonsense, if the service fails the container should restart, not indefinitely hang. For example, Nginx has a `nginx -g "daemon off;"' mode.
@@ -91,10 +91,10 @@ A web server known for high performance, stability and efficiency. Uses TLS or S
 8. Create Makefile, creating the data directories and launching docker compose.
 
 # Useful Commands
-Check running containers- "docker ps"
-Check logs of container- "docker logs <service>"
-Enter a running container's shell- "docker exec -it mariadb bash"
-View container network system- "docker network ls"
+Check running containers- "docker ps"<br />
+Check logs of container- "docker logs <service>"<br />
+Enter a running container's shell- "docker exec -it mariadb bash"<br />
+View container network system- "docker network ls"<br />
 
 # Resources
 <ins>Dockers, Containers and other Key Concepts</ins><br />
