@@ -65,25 +65,25 @@ A web server known for high performance, stability and efficiency. Uses TLS or S
 2. Install Vim, Docker, Docker-Compose.
 3. Set up your project directory structure as follows:
     /<br />
-    ├── Makefile<br />
-    └── srcs/<br />
-        ├── .env<br />
-        ├── docker-compose.yml<br />
-        └── requirements/<br />
-            ├── mariadb/<br />
-            │   ├── Dockerfile<br />
-            │   └── tools/<br />
-            │       └── script.sh<br />
-            ├── nginx/<br />
-            │   ├── Dockerfile<br />
-            │   ├── conf/<br />
-            │   │   └── nginx.conf<br />
-            │   └── tools/<br />
-            │       └── script.sh<br />
-            └── wordpress/<br />
-                ├── Dockerfile<br />
-                └── tools/<br />
-                    └── script.sh<br />
+••••├── Makefile<br />
+••••└── srcs/<br />
+••••••••├── .env<br />
+••••••••├── docker-compose.yml<br />
+••••••••└── requirements/<br />
+••••••••••••├── mariadb/<br />
+••••••••••••│   ├── Dockerfile<br />
+••••••••••••│   └── tools/<br />
+••••••••••••│       └── script.sh<br />
+••••••••••••├── nginx/<br />
+••••••••••••│   ├── Dockerfile<br />
+••••••••••••│   ├── conf/<br />
+••••••••••••│   │   └── nginx.conf<br />
+••••••••••••│   └── tools/<br />
+••••••••••••│       └── script.sh<br />
+••••••••••••└── wordpress/<br />
+••••••••••••••••├── Dockerfile<br />
+••••••••••••••••└── tools/<br />
+••••••••••••••••└── script.sh<br />
 4. Create a .env file for your WordPress and MariaDB containers to use. Add it to .gitignore.
 5. Create the Dockerfile for all services. Call 'FROM' with the second-to-latest Debian release. Update and upgrade apt-get, curl and php-fpm. Each follows the same pattern — install packages, copy your script in (preemtively stand ready for its arrival), set ENTRYPOINT (run script when container starts).
 6. Write a startup script for all services. They'll run inside the container when it starts. It must end with a foreground process — this is what keeps the container alive. Docker monitors this last process; if it exits, the container shuts down. No 'while true' or 'sleep infinity' nonsense, if the service fails the container should restart, not indefinitely hang. For example, Nginx has a `nginx -g "daemon off;"' mode.
