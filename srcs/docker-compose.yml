@@ -10,7 +10,7 @@ volumes:
     name: wordpress
     driver: local
     driver_opts:
-      device: /home/rpadasia/data/wordpress
+      device: 
       o: bind
       type: none
 

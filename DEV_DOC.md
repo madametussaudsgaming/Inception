@@ -60,34 +60,37 @@ sudo chmod 666 /var/run/docker.sock
 ```
 
 ### 3. Project directory structure
-```
+
 The project must follow this exact structure:
-/<br />
-••••├── Makefile<br />
-••••└── srcs/<br />
-••••••••├── .env<br />
-••••••••├── docker-compose.yml<br />
-••••••••└── requirements/<br />
-••••••••••••├── mariadb/<br />
-••••••••••••│   ├── Dockerfile<br />
-••••••••••••│   └── tools/<br />
-••••••••••••│       └── script.sh<br />
-••••••••••••├── nginx/<br />
-••••••••••••│   ├── Dockerfile<br />
-••••••••••••│   ├── conf/<br />
-••••••••••••│   │   └── nginx.conf<br />
-••••••••••••│   └── tools/<br />
-••••••••••••│       └── script.sh<br />
-••••••••••••└── wordpress/<br />
-••••••••••••••••├── Dockerfile<br />
-••••••••••••••••└── tools/<br />
-••••••••••••••••└── script.sh<br />
+
+```
+/
+├── Makefile
+└── srcs/
+    ├── .env                        ← environment variables, never commit to git
+    ├── docker-compose.yml
+    └── requirements/
+        ├── mariadb/
+        │   ├── Dockerfile
+        │   └── tools/
+        │       └── script.sh
+        ├── nginx/
+        │   ├── Dockerfile
+        │   ├── conf/
+        │   │   └── nginx.conf
+        │   └── tools/
+        │       └── script.sh
+        └── wordpress/
+            ├── Dockerfile
+            └── tools/
+                └── script.sh
 ```
 
 ### 4. Configuration files
 
 **`.env` file** at `srcs/.env` — picked up automatically by Docker Compose. Must be added to `.gitignore`. Contains all credentials and configuration values used by the container startup scripts:
 
+MY EXAMPLE, NOT REFLECTIVE TO THE REAL .env PASTED!
 ```bash
 # Domain
 DOMAIN_NAME=rpadasia.42.fr
@@ -105,12 +108,6 @@ WP_ADMIN_EMAIL=you@student.42.fr
 WP_USR=rpadasia_user
 WP_PWD=yourpassword
 WP_EMAIL=user@rpadasia.42.fr
-```
-
-**`.gitignore`** at project root — must include:
-```
-srcs/.env
-secrets/
 ```
 
 ### 5. How each service is built

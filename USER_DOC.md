@@ -1,5 +1,5 @@
 # USER_DOC.md — User Documentation
-_Inception project by rpadasia_
+_This project has been created as part of the 42 curriculum by rpadasia [@madametussaudsgaming]_
 
 ---
 
