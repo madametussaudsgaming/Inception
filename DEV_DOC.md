@@ -1,5 +1,5 @@
 # DEV_DOC.md — Developer Documentation
-_Inception project by rpadasia_
+_This project has been created as part of the 42 curriculum by rpadasia [@madametussaudsgaming]_
 
 ---
 
@@ -7,7 +7,7 @@ _Inception project by rpadasia_
 
 ### Prerequisites
 
-- A Linux Virtual Machine running **Debian Bookworm** (second-to-latest stable Debian, as required by the project)
+- A Linux Virtual Machine running second-to-latest stable Debian, I've used Bookworm (9/5/2026)
 - VirtualBox with NAT network adapter
 - Your VM username must match your 42 login (`rpadasia`) because volume paths are tied to `/home/rpadasia/data`
 
@@ -19,7 +19,7 @@ Set VirtualBox network to NAT, then add your domain to the VM's hosts file:
 sudo nano /etc/hosts
 ```
 
-Add this line (do NOT remove or modify the existing localhost line):
+Add this line (do NOT remove or modify the existing localhost line, internal things will break):
 ```
 127.0.0.1   rpadasia.42.fr
 ```
@@ -62,32 +62,26 @@ sudo chmod 666 /var/run/docker.sock
 ### 3. Project directory structure
 
 The project must follow this exact structure:
-
-```
-/
-├── Makefile
-├── secrets/                        ← optional, for Docker secrets
-│   ├── db_password.txt
-│   └── db_root_password.txt
-└── srcs/
-    ├── .env                        ← environment variables, never commit to git
-    ├── docker-compose.yml
-    └── requirements/
-        ├── mariadb/
-        │   ├── Dockerfile
-        │   └── tools/
-        │       └── script.sh
-        ├── nginx/
-        │   ├── Dockerfile
-        │   ├── conf/
-        │   │   └── nginx.conf
-        │   └── tools/
-        │       └── script.sh
-        └── wordpress/
-            ├── Dockerfile
-            └── tools/
-                └── script.sh
-```
+/<br />
+••••├── Makefile<br />
+••••└── srcs/<br />
+••••••••├── .env<br />
+••••••••├── docker-compose.yml<br />
+••••••••└── requirements/<br />
+••••••••••••├── mariadb/<br />
+••••••••••••│   ├── Dockerfile<br />
+••••••••••••│   └── tools/<br />
+••••••••••••│       └── script.sh<br />
+••••••••••••├── nginx/<br />
+••••••••••••│   ├── Dockerfile<br />
+••••••••••••│   ├── conf/<br />
+••••••••••••│   │   └── nginx.conf<br />
+••••••••••••│   └── tools/<br />
+••••••••••••│       └── script.sh<br />
+••••••••••••└── wordpress/<br />
+••••••••••••••••├── Dockerfile<br />
+••••••••••••••••└── tools/<br />
+••••••••••••••••└── script.sh<br />
 
 ### 4. Configuration files
 
