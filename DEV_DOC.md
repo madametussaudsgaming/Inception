@@ -60,7 +60,7 @@ sudo chmod 666 /var/run/docker.sock
 ```
 
 ### 3. Project directory structure
-
+```
 The project must follow this exact structure:
 /<br />
 ••••├── Makefile<br />
@@ -82,6 +82,7 @@ The project must follow this exact structure:
 ••••••••••••••••├── Dockerfile<br />
 ••••••••••••••••└── tools/<br />
 ••••••••••••••••└── script.sh<br />
+```
 
 ### 4. Configuration files
 
